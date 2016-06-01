@@ -11,4 +11,4 @@ The database itself is built on top of MongoDB, a document-based database very p
 
 ## Installation
 1. `(sudo) pip install flask`
-1. `pip install pymongo`
+1. `(sudo) pip install pymongo`

@@ -2,10 +2,14 @@
 <html>
 <head>
 {% block head %}{% endblock %}
+<link rel="stylesheet" href="https://ameo.link/u/27d.css">
+<link rel="stylesheet" href="{{ conf.ROOT_ADDRESS }}sources/main.css">
 </head>
 <body>
 {% include "header.html" %}
+<section class="wrapper">
 {% block body %}{% endblock %}
+</section>
 {% include "footer.html" %}
 </body>
 </html>
