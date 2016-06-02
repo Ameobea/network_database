@@ -1,35 +1,33 @@
 {% extends "layout.html" %}
 {% block head %}
 <title>Network Browser</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="../sources/browse.js"></script>
 {% endblock %}
 
 {% block body %}
-<div class="ta-center">
 <h1>Network Browser</h1>
-<p>TODO: Settings for search terms, sorting order, etc.</p>
-<h2>Network List</h2>
-<table>
-<tr>
-  <th>#</th>
-  <th>Name</th>
-  <th>Hash</th>
-  <th>Node Count</th>
-  <th>Edge Count</th>
-  <th>Upload Date</th>
-</tr>
-{% set i = 0 %}
-{% for nHash in networkList %}
-{% set i = i + 1 %}
-{% set network = dbQuery.getNetwork(nHash) %}
-<tr>
-  <td>{{ i }}</td>
-  <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
-  <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] }}</td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] }}</td>
-  <td><b>TODO</b></td>
-</tr>
-{% endfor %}
-</table>
-</div>
+<table><tbody><tr>
+<td><input type="button" id="searchButton" value="Search"></td>
+<td>
+Sort by <select id="sort">
+  <option value="name">Name</option>
+  <option value="hash">Hash</option>
+  <option value="uploadDate">Upload Date</option>
+</select>
+</td><td>
+Sort Direction <select id="sortDirection">
+  <option value="forward">Forward</option>
+  <option value="reverse">Reverse</option>
+</select>
+</td><td>
+Results per page <select id="nResults">
+  <option value="10">10</option>
+  <option value="20">20</option>
+  <option value="50">50</option>
+  <option value="100">100</option>
+</select></td>
+</tr></tbody></table>
+<div id="results"></div>
+
 {% endblock %}

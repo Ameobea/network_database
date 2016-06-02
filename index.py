@@ -2,8 +2,10 @@
 #
 # Written by Casey Primozic
 from flask import Flask, render_template, send_from_directory
-from helpers import conf, dbQuery, networkUtils
+from helpers import conf, dbQuery, networkUtils, jinjaSetup
 app = Flask(__name__)
+
+jinjaSetup.register(app.jinja_env)
 
 # All routes need to be given the `conf` object in their context
 @app.route("/")
@@ -29,9 +31,14 @@ def networkInfo(networkHash):
 
 @app.route("/browse")
 def browseNetworks():
-  networkList = dbQuery.getNetworkList(50)
-  return render_template("browse.html", conf=conf, networkList=networkList,
+  return render_template("browse.html", conf=conf,
       networkUtils=networkUtils, dbQuery=dbQuery)
+
+@app.route("/parts/<page>")
+def parts(page):
+  if page == "browseResults":
+    return render_template("mixins/browseResults.html", conf=conf, dbQuery=dbQuery,
+        networkUtils=networkUtils)
 
 @app.route("/admin")
 def admin():

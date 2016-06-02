@@ -16,7 +16,7 @@ def getDb():
   client = MongoClient(conf.MONGO_ADDRESS, conf.MONGO_PORT)
   return client[conf.MONGO_DATABASE]
 
-# Returns a network from the database with the given hash.  
+# Returns a network from the database with the given hash.
 # If it doesn't exist, returns False.
 def getNetwork(networkHash):
   db = getDb()
@@ -27,9 +27,15 @@ def getNetwork(networkHash):
     return False
 
 # Returns a list of the hashes of the first `limit` networks in the database
-def getNetworkList(limit):
+def getNetworkList(limit, sortBy, sortDirection):
+  if sortBy != "name" and sortBy != "hash" and sortBy != "uploadDate":
+    sortBy = "name"
+  if sortDirection == "forward":
+    sortDirection = 1
+  else:
+    sortDirection = -1
   db = getDb()
-  cursor = db.networks.find().limit(limit).sort("hash", 1)
+  cursor = db.networks.find().limit(limit).sort(sortBy, sortDirection)
   networks = []
   for network in cursor:
     networks.append(network["hash"])

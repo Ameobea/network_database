@@ -1,0 +1,26 @@
+<h2>Network List</h2>
+<table><tbody>
+<tr>
+  <th>#</th>
+  <th>Name</th>
+  <th>Hash</th>
+  <th>Node Count</th>
+  <th>Edge Count</th>
+  <th>Upload Date</th>
+</tr>
+{% set i = 0 %}
+{% set count = request.args.get("results") | count %}
+{% set networkList = dbQuery.getNetworkList(count, request.args.get("sort"), request.args.get("direction")) %}
+{% for nHash in networkList %}
+{% set i = i + 1 %}
+{% set network = dbQuery.getNetwork(nHash) %}
+<tr>
+  <td>{{ i }}</td>
+  <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
+  <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
+  <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] }}</td>
+  <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] }}</td>
+  <td><b>TODO</b></td>
+</tr>
+{% endfor %}
+</tbody></table>
