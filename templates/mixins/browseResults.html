@@ -18,8 +18,8 @@
   <td>{{ i }}</td>
   <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
   <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] }}</td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] }}</td>
+  <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] | commas }}</td>
+  <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] | commas }}</td>
   <td><b>TODO</b></td>
 </tr>
 {% endfor %}

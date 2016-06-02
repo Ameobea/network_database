@@ -8,5 +8,113 @@
 
 {% block body %}
 <h1>Network Information for <span class="fw-bold">{{ network.name }}</span></h1>
-
+{% set calcDict = network["calculations"] | calcDict %}
+<div class="borderTop">
+<span class="fw-bold">Description: </span>
+{% if network.description %}
+  <p>{{ network.description }}</p>
+{% else %}
+  <p>No description given for this network.</p>
+{% endif %}
+</div>
+<div class="bottomBorder borderTop">
+<span class="fw-bold">Tags: </span>
+{% if network.tags %}
+  <p>
+  {% for tag in network.tags %}
+    <a href="../tags/{{ tag }}">{{ tag }}</a>
+  {% endfor %}
+  </p>
+{% else %}
+  <p><span class="fs-italic">No tags for this network.</span></p>
+{% endif %}
+</div>
+<h2>Data Table</h2>
+<table><tbody class="striped">
+<tr><th>Name</th><th>Result</th></tr>
+{% if calcDict["nodeCount"] is validCalc %}
+<tr><td>Nodes</td><td>{{ calcDict["nodeCount"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["edgeCount"] is validCalc %}
+<tr><td>Edges</td><td>{{ calcDict["edgeCount"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["degree"] is validCalc %}
+<tr><td>Degree Histogram</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["density"] is validCalc %}
+<tr><td>Density</td><td>{{ calcDict["density"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["isDirected"] is validCalc %}
+<tr><td>Directed</td><td>{{ calcDict["isDirected"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["isChordal"] is validCalc %}
+<tr><td>Chordal</td><td>{{ calcDict["isChordal"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["radius"] is validCalc %}
+<tr><td>Radius</td><td>{{ calcDict["radius"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["center"] is validCalc %}
+<tr><td>Center</td><td>{{ calcDict["center"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["transitivity"] is validCalc %}
+<tr><td>Transitivity</td><td>{{ calcDict["transitivity"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["isConnected"] is validCalc %}
+<tr><td>Connected</td><td>{{ calcDict["isConnected"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["averageNeighborDegree"] is validCalc %}
+<tr><td>Average Neighbor Degree</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["averageClustering"] is validCalc %}
+<tr><td>Average Clustering</td><td>{{ calcDict["averageClustering"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["trianglesPerNode"] is validCalc %}
+<tr><td>Triangles Per Node</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["closenessCentrality"] is validCalc %}
+<tr><td>Closeness Centrality</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["eigenvectorCentrality"] is validCalc %}
+<tr><td>Eigenvector Centrality</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["betweennessCentrality"] is validCalc %}
+<tr><td>Betweenness Centrality</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["cliqueNumber"] is validCalc %}
+<tr><td>Cliques</td><td>{{ calcDict["cliqueNumber"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["averageNodeConnectivity"] is validCalc %}
+<tr><td>Average Node Connectivity</td><td>{{ calcDict["averageNodeConnectivity"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["averageDegreeConnectivity"] is validCalc %}
+<tr><td>Average Degree Connectivity</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["numberConnectedComponents"] is validCalc %}
+<tr><td>Distinct Connected Components</td><td>{{ calcDict["numberConnectedComponents"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["degreeAssortativityCoefficient"] is validCalc %}
+<tr><td>Degree Assortativity Coefficient</td><td>{{ calcDict["degreeAssortativityCoefficient"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["isEulerian"] is validCalc %}
+<tr><td>Eulerian</td><td>{{ calcDict["isEulerian"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["triadicCensus"] is validCalc %}
+<tr><td>Triadic Census</td><td>{{ calcDict["triadicCensus"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["dispersion"] is validCalc %}
+<tr><td>Dispersion</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["isBipartite"] is validCalc %}
+<tr><td>Bipartite</td><td>{{ calcDict["isBipartite"]["res"] | commas }}</td></tr>
+{% endif %}
+{% if calcDict["eccentricity"] is validCalc %}
+<tr><td>Eccentricity</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["richClubCoefficient"] is validCalc %}
+<tr><td>Rich Club Coefficient</td><td>TODO</td></tr>
+{% endif %}
+{% if calcDict["flowHierarchy"] is validCalc %}
+<tr><td>Flow Hierarchy</td><td>{{ calcDict["flowHierarchy"]["res"] | commas }}</td></tr>
+{% endif %}
+</tbody></table>
 {% endblock %}
