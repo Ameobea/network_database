@@ -24,7 +24,8 @@ def networkInfo(networkHash):
   if type(network) == bool:
     return render_template("noNetwork.html", conf=conf)
   else:
-    return render_template("info.html", network=network, conf=conf)
+    return render_template("info.html", network=network, conf=conf, dbQuery=dbQuery,
+        networkHash=networkHash)
 
 @app.route("/browse")
 def browseNetworks():

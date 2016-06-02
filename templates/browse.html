@@ -23,8 +23,8 @@
 {% set network = dbQuery.getNetwork(nHash) %}
 <tr>
   <td>{{ i }}</td>
-  <td>{{ network.name }}</td>
-  <td><code>{{ network.hash }}</code></span></td>
+  <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
+  <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
   <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] }}</td>
   <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] }}</td>
   <td><b>TODO</b></td>

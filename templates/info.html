@@ -4,7 +4,9 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 {% endblock %}
 
+{% set network = dbQuery.getNetwork(networkHash) %}
+
 {% block body %}
-<h1>Network Information</h1>
+<h1>Network Information for <span class="fw-bold">{{ network.name }}</span></h1>
 
 {% endblock %}
