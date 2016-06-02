@@ -2,8 +2,7 @@
 #
 # Written by Casey Primozic
 from flask import Flask, render_template, send_from_directory
-from helpers import conf, dbQuery
-print(conf)
+from helpers import conf, dbQuery, networkUtils
 app = Flask(__name__)
 
 # All routes need to be given the `conf` object in their context
@@ -30,7 +29,12 @@ def networkInfo(networkHash):
 @app.route("/browse")
 def browseNetworks():
   networkList = dbQuery.getNetworkList(50)
-  return render_template("browse.html", conf=conf, networkList=networkList)
+  return render_template("browse.html", conf=conf, networkList=networkList,
+      networkUtils=networkUtils, dbQuery=dbQuery)
+
+@app.route("/admin")
+def admin():
+  return render_template("admin.html", conf=conf, dbQuery=dbQuery)
 
 @app.route("/sources/<path:path>")
 def serverData(path):

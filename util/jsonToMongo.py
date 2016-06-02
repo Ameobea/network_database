@@ -39,7 +39,7 @@ def importMain(filename):
     networkHash = networkData[0]["hash"]
     cursor = db.networks.find({"hash": networkHash})
     if cursor.count() == 0:
-      db.networks.insert_one({"hash": networkHash, "name": networkName})
+      db.networks.insert_one({"hash": networkHash, "name": networkName, "calculations": networkData})
     else:
       doc = cursor[0]
       for calculation in networkData:

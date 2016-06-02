@@ -18,11 +18,11 @@ def getDb():
 
 # Returns a network from the database with the given hash.  
 # If it doesn't exist, returns False.
-def getNetwork(hash):
+def getNetwork(networkHash):
   db = getDb()
-  cursor = db.networks.find({"hash": hash})
-  if cursor.count() > 0:
-    return cursor[0]
+  res = db.networks.find_one({"hash": networkHash})
+  if res != None:
+    return res
   else:
     return False
 
@@ -34,3 +34,8 @@ def getNetworkList(limit):
   for network in cursor:
     networks.append(network["hash"])
   return networks
+
+# Wipes ALL data from database.  Yeah, be careful.
+def flush():
+  db = getDb()
+  db.dropDatabase()
