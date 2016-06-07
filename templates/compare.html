@@ -5,5 +5,10 @@
 
 {% block body %}
 <h1>Network Comparison</h1>
-
+<table><tbody class="striped">
+<tr><th>Name</th>{% for network in networks %}<th><a href="../../info/{{ network.hash }}">{{ network.name }}</a></th>{% endfor %}</tr>
+{{ statsRow("Node Count", calcDicts, "nodeCount.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Edge Count", calcDicts, "edgeCount.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Density", calcDicts, "density.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
+</tbody></table>
 {% endblock %}

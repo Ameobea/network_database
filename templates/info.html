@@ -212,7 +212,23 @@ $(document).ready(function(){
 <tr><td>Eulerian</td><td>{{ calcDict["isEulerian"]["res"] | commas }}</td></tr>
 {% endif %}
 {% if calcDict["triadicCensus"] is validCalc %}
-<tr><td>Triadic Census</td><td>{{ calcDict["triadicCensus"]["res"] | commas }}</td></tr>
+<tr><td>Triadic Census</td>
+<td>
+<script type="text/javascript">
+$(document).ready(function(){
+  var data = [
+  {% for elem in calcDict["triadicCensus"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  ];
+
+  $('#triadicCensusHistogram').highcharts({
+    title: {text: 'Triadic Census Distibution'},
+    chart: {type: 'histogram'},
+    series: [{data: data}],
+  });
+});
+</script>
+<div id="triadicCensusHistogram"></div>
+</td></tr>
 {% endif %}
 {% if calcDict["dispersion"] is validCalc %}
 <tr><td>Dispersion</td>

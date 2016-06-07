@@ -3,6 +3,8 @@
 # Written by Casey Primozic
 from flask import Flask, render_template, send_from_directory
 from helpers import conf, dbQuery, networkUtils, jinjaSetup
+from views import compare
+
 app = Flask(__name__)
 
 jinjaSetup.register(app.jinja_env)
@@ -16,9 +18,9 @@ def main():
 def screener():
   return render_template("screener.html", conf=conf)
 
-@app.route("/compare")
-def compare():
-  return render_template("compare.html", conf=conf)
+@app.route("/compare/<networks>")
+def renderCompare(networks):
+  return compare.compare(networks, app.jinja_env)
 
 @app.route("/info/<networkHash>")
 def networkInfo(networkHash):
@@ -45,7 +47,7 @@ def admin():
   return render_template("admin.html", conf=conf, dbQuery=dbQuery)
 
 @app.route("/sources/<path:path>")
-def serverData(path):
+def serveData(path):
   return send_from_directory("sources", path)
 
 @app.route("/sources/highcharts-historgram/<path:path>")
