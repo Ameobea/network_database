@@ -48,5 +48,9 @@ def admin():
 def serverData(path):
   return send_from_directory("sources", path)
 
+@app.route("/sources/highcharts-historgram/<path:path>")
+def highchartsHistogram(path):
+  return send_from_directory("sources/highcharts-historgram", path)
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0', debug=True)

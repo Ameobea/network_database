@@ -1,0 +1,3 @@
+[submodule "sources/highcharts-histogram"]
+	path = sources/highcharts-histogram
+	url = git@github.com:Ameobea/highcharts-histogram.git
