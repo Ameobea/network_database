@@ -27,7 +27,7 @@ def getNetwork(networkHash):
     return False
 
 # Returns a list of the hashes of the first `limit` networks in the database
-def getNetworkList(limit, sortBy, sortDirection):
+def getNetworkList(limit, sortBy, sortDirection, start):
   if sortBy != "name" and sortBy != "hash" and sortBy != "uploadDate":
     sortBy = "name"
   if sortDirection == "forward":
@@ -35,7 +35,7 @@ def getNetworkList(limit, sortBy, sortDirection):
   else:
     sortDirection = -1
   db = getDb()
-  cursor = db.networks.find().limit(limit).sort(sortBy, sortDirection)
+  cursor = db.networks.find().skip(start).limit(limit).sort(sortBy, sortDirection)
   networks = []
   for network in cursor:
     networks.append(network["hash"])

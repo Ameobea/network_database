@@ -21,3 +21,9 @@ tbody.striped tr:nth-child(odd) {
 .fs-italic {
   font-style: italic
 }
+
+.fake-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}

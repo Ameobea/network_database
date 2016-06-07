@@ -41,7 +41,6 @@ def calcExists(inCalc):
       if type(res) == bool or res == "False" or res == "True":
         return True
       else:
-        print inCalc["res"]
         return False
   except Exception, e:
     return False
@@ -53,5 +52,7 @@ def register(environment):
   environment.filters["count"] = countFilter
   environment.filters["calcDict"] = calcDictFilter
   environment.filters["commas"] = commaFilter
+  environment.filters["len"] = len
+  environment.filters["int"] = int
 
   environment.tests["validCalc"] = calcExists
