@@ -28,7 +28,9 @@ def statsRow(name, calcDicts, key, jinjaEnv, filters=[]):
   return res
 
 # do some calculations and inject into template, then return rendered template
-def compare(hashString, jinjaEnv):
+def compare(hashString, jinjaEnv, cookies=None):
+  if type(hashString) == bool:
+    hashString = cookies.get("compare").replace("%2C", ",")
   networks = []
   calcDicts = []
   for hash in hashString.split(","):

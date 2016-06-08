@@ -1,7 +1,7 @@
 # Entry point for database web interface
 #
 # Written by Casey Primozic
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request
 from helpers import conf, dbQuery, networkUtils, jinjaSetup
 from views import compare
 
@@ -21,6 +21,10 @@ def screener():
 @app.route("/compare/<networks>")
 def renderCompare(networks):
   return compare.compare(networks, app.jinja_env)
+
+@app.route("/compare")
+def renderCookieCompare():
+  return compare.compare(False, app.jinja_env, cookies=request.cookies)
 
 @app.route("/info/<networkHash>")
 def networkInfo(networkHash):
