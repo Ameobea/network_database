@@ -1,5 +1,6 @@
 function compareAdd(hash){ // Add it to cookie
   var cookieValue = Cookies.get("compare");
+  cookieValue = cookieValue.replace("%20", ",");
   if(cookieValue){
     var splitCookie = cookieValue.split(",");
   }
@@ -18,7 +19,7 @@ function compareAdd(hash){ // Add it to cookie
         newCookieValue += splitCookie[i] + ",";
       }
     }
-    
+
     newCookieValue = newCookieValue.substr(newCookieValue, newCookieValue.length-1);
     Cookies.set("compare", newCookieValue);
     return("+");

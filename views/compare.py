@@ -14,16 +14,21 @@ from helpers import dbQuery, conf, jinjaSetup
 # the table cells in order before being escaped and added to the output string.
 def statsRow(name, calcDicts, key, jinjaEnv, filters=[]):
   res = "<tr><td>" + name + "</td>"
+  i = -1
   for calcDict in calcDicts:
-    point = calcDict
-    for deep in key.split("."):
-      point = point[deep]
+    i += 1
+    try:
+      point = calcDict
+      for deep in key.split("."):
+        point = point[deep]
 
-    data = str(point)
-    if filters != []:
-      for dataFilter in filters:
-        data = dataFilter(data)
-    res = res + "<td>" + str(jinjaEnv.filters["e"](data)) + "</td>"
+      data = str(point)
+      if filters != []:
+        for dataFilter in filters:
+          data = dataFilter(data)
+      res = res + "<td class='col-" + str(i) + "'>" + str(jinjaEnv.filters["e"](data)) + "</td>"
+    except Exception, e:
+      res += "<td class='col-" + str(i) + "'></td>" # network doesn't have this attribute, so insert empty cell.
   res += "</tr>"
   return res
 

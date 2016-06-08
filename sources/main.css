@@ -33,3 +33,13 @@ tbody.striped tr:nth-child(odd){
   font-weight: bold;
   cursor: pointer;
 }
+
+/* When hovered over, displays tooltip-text */
+.tooltip .tooltip-text{
+  font-size: 10px;
+  visibility: hidden;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
