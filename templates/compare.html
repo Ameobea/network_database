@@ -38,6 +38,7 @@ $(document).ready(function(){
 {{ statsRow("Directed", calcDicts, "isDirected.res", jinjaEnv) | safe }}
 {{ statsRow("Chordal", calcDicts, "isChordal.res", jinjaEnv) | safe }}
 {{ statsRow("Radius", calcDicts, "radius.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Density", calcDicts, "density.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
 {# statsRow("Center", calcDicts, "center.res", jinjaEnv) | safe #}
 {{ statsRow("Transitivity", calcDicts, "transitivity.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
 {{ statsRow("Connected", calcDicts, "isConnected.res", jinjaEnv) | safe }}
