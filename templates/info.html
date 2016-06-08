@@ -3,12 +3,32 @@
 <title>Network Information</title>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="../sources/highcharts-histogram/highcharts-histogram.js"></script>
+<script src="../sources/compareAdd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  var cookieValue = Cookies.get("compare");
+  if(cookieValue){
+    var split = cookieValue.split(",");
+    for(var i=0;i<split.length;i++){
+      $("#comp-add-" + split[i]).html("-");
+    }
+  }
+
+  $(".compAdd").click(function(){
+    var hash = this.attributes[1].value.split("add-")[1];
+    var symbol = compareAdd(hash);
+    $("#comp-add-" + hash).html(symbol);
+  });
+});
+</script>
 {% endblock %}
 
 {% set network = dbQuery.getNetwork(networkHash) %}
 
 {% block body %}
 <h1>Network Information for <span class="fw-bold">{{ network.name }}</span></h1>
+<span class="compare-add compAdd fs-large" id="comp-add-{{ networkHash }}">+</span> Click the symbol to the left to add or remove this network from the <a href="../../compare">comparison table</a>.
 {% set calcDict = network["calculations"] | calcDict %}
 <div class="borderTop">
 <span class="fw-bold">Description: </span>
