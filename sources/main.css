@@ -1,29 +1,35 @@
-#footer {
+#footer{
   color: #9C9C9C;
 }
 
-th {
+th{
   font-weight: bold !important;
 }
 
-.bottomBorder {
+.bottomBorder{
   border-bottom: 1px solid black;
 }
 
-.borderTop {
+.borderTop{
   border-top: 1px solid black;
 }
 
-tbody.striped tr:nth-child(odd) {
+tbody.striped tr:nth-child(odd){
    background-color: #cdcdcd;
 }
 
-.fs-italic {
+.fs-italic{
   font-style: italic
 }
 
-.fake-link {
+.fake-link{
   color: blue;
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.compare-add{
+  color: blue;
+  font-weight: bold;
   cursor: pointer;
 }

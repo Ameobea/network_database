@@ -39,7 +39,10 @@ def importMain(filename):
     networkHash = networkData[0]["hash"]
     cursor = db.networks.find({"hash": networkHash})
     if cursor.count() == 0:
-      db.networks.insert_one({"hash": networkHash, "name": networkName, "calculations": networkData})
+      try:
+        db.networks.insert_one({"hash": networkHash, "name": networkName, "calculations": networkData})
+      except Exception, e:
+        print("Couldn't insert network " + networkName + " because some of its values contain `.`s.  ")
     else:
       doc = cursor[0]
       for calculation in networkData:
@@ -50,6 +53,7 @@ def importMain(filename):
 
 if type(mainResultsFilename) != bool:
   importMain(mainResultsFilename)
+  print("All networks imported.")
 else:
   print("No input file was supplied.")
   printUsage()

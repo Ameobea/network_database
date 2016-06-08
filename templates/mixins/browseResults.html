@@ -1,6 +1,7 @@
 <h2>Network List</h2>
 <table><tbody>
 <tr>
+  <th>Add to Compare</th>
   <th>#</th>
   <th>Name</th>
   <th>Hash</th>
@@ -16,16 +17,17 @@ var start = parseInt({{ start }});
 {% set count = request.args.get("results") | count %}
 {% set networkList = dbQuery.getNetworkList(count, request.args.get("sort"), request.args.get("direction"), start) %}
 {% for nHash in networkList %}
-{% set i = i + 1 %}
-{% set network = dbQuery.getNetwork(nHash) %}
-<tr>
-  <td>{{ i }}</td>
-  <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
-  <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] | commas }}</td>
-  <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] | commas }}</td>
-  <td><b>TODO</b></td>
-</tr>
+  {% set i = i + 1 %}
+  {% set network = dbQuery.getNetwork(nHash) %}
+  <tr>
+    <td class="ta-center"><span class="compare-add compAdd" id="comp-add-{{ network.hash }}">+</span></td>
+    <td>{{ i }}</td>
+    <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
+    <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
+    <td>{{ networkUtils.getCalcByName(network["calculations"], "nodeCount")["data"]["res"] | commas }}</td>
+    <td>{{ networkUtils.getCalcByName(network["calculations"], "edgeCount")["data"]["res"] | commas }}</td>
+    <td><b>TODO</b></td>
+  </tr>
 {% endfor %}
 </tbody></table>
 <div class="ta-center" id="browserNavigation">
@@ -36,6 +38,7 @@ var start = parseInt({{ start }});
   <span class="fake-link" id="nextArrow">></span>
 {% endif %}
 <script type="text/javascript">
+  // Set up click listeners for navigation arrors + comparison add
   $("#nextArrow").click(function(){
     showResults($("#sort").val(), $("#nResults").val(), $("#sortDirection").val(), start +
         parseInt($("#nResults").val()));
@@ -45,5 +48,20 @@ var start = parseInt({{ start }});
     showResults($("#sort").val(), $("#nResults").val(), $("#sortDirection").val(), start -
         parseInt($("#nResults").val()));
   });
+
+  $(".compAdd").click(function(){
+    var hash = this.attributes[1].value.split("add-")[1];
+    var symbol = compareAdd(hash);
+    $("#comp-add-" + hash).html(symbol);
+  });
+
+  // Swap signs for already comparison-saved networks
+  var cookieValue = Cookies.get("compare");
+  if(cookieValue){
+    var split = cookieValue.split(",");
+    for(var i=0;i<split.length;i++){
+      $("#comp-add-" + split[i]).html("-");
+    }
+  }
 </script>
 </div>
