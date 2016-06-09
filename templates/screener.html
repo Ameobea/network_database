@@ -3,10 +3,29 @@
 <title>Network Screener</title>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="../sources/highcharts-histogram/highcharts-histogram.js"></script>
+<script src="../sources/screener.js"></script>
 {% endblock %}
 
 {% block body %}
 <h1>Network Screener</h1>
 <p>The network screener allows you to filter networks in the database over multiple criteria.  </p>
-{{ dHistogram("nodeCount", "Node Count", distributions) | safe }}
+<section class="grid">
+  <div class="slider">
+    {{ dHistogram("nodeCount", "Node Count", distributions) | safe }}
+    {{ sliderGen("nodeCount", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dHistogram("edgeCount", "Edge Count", distributions) | safe }}
+    {{ sliderGen("edgeCount", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dHistogram("density", "Density", distributions) | safe }}
+    {{ sliderGen("density", distributions) | safe }}
+    </div>
+  </div>
+  <div class="slider">
+    {{ dHistogram("transitivity", "Transitivity", distributions) | safe }}
+    {{ sliderGen("transitivity", distributions) | safe }}
+  </div>
+</section>
 {% endblock %}

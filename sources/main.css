@@ -43,3 +43,17 @@ tbody.striped tr:nth-child(odd){
 .tooltip:hover .tooltip-text {
   visibility: visible;
 }
+
+.fullwidth {
+  width: 100%;
+}
+
+.normalSlider {
+  -webkit-appearance: slider-horizontal !important;
+  float: right;
+  width: 100%;
+}
+
+input {
+  border: 1px solid black;
+}

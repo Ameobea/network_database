@@ -54,5 +54,7 @@ def register(environment):
   environment.filters["commas"] = commaFilter
   environment.filters["len"] = len
   environment.filters["int"] = int
+  environment.filters["min"] = min
+  environment.filters["max"] = max
 
   environment.tests["validCalc"] = calcExists
