@@ -3,7 +3,7 @@
 # Written by Casey Primozic
 from flask import Flask, render_template, send_from_directory, request
 from helpers import conf, dbQuery, networkUtils, jinjaSetup
-from views import compare
+from views import compare, screener
 
 app = Flask(__name__)
 
@@ -15,8 +15,8 @@ def main():
   return render_template("index.html", conf=conf)
 
 @app.route("/screener")
-def screener():
-  return render_template("screener.html", conf=conf)
+def renderScreener():
+  return screener.render()
 
 @app.route("/compare/<networks>")
 def renderCompare(networks):

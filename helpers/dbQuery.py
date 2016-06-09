@@ -27,7 +27,7 @@ def getNetwork(networkHash):
     return False
 
 # Returns a list of the hashes of the first `limit` networks in the database
-def getNetworkList(limit, sortBy, sortDirection, start):
+def getNetworkList(limit, sortBy, sortDirection, start, db=False):
   if type(limit) == bool:
     limit = 0
   if sortBy != "name" and sortBy != "hash" and sortBy != "uploadDate":
@@ -36,12 +36,19 @@ def getNetworkList(limit, sortBy, sortDirection, start):
     sortDirection = 1
   else:
     sortDirection = -1
-  db = getDb()
+  if type(db) == bool:
+    db = getDb()
   cursor = db.networks.find({}, {"hash": 1}).skip(start).limit(limit).sort(sortBy, sortDirection)
   networks = []
   for network in cursor:
     networks.append(network["hash"])
   return networks
+
+# returns the distributions table
+def getDistributions(db=False):
+  if type(db) == bool:
+    db = getDb()
+  return db.distributions.find_one()
 
 # Wipes ALL data from database.  Yeah, be careful.
 def flush():

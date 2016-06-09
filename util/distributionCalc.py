@@ -11,7 +11,8 @@ sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from helpers import dbQuery
 
 db = dbQuery.getDb()
-nList = dbQuery.getNetworkList(0, 0, 0, 0)
+# Uses default values
+nList = dbQuery.getNetworkList(0, 0, 0, 0, db=db)
 
 distributions = {}
 
@@ -25,5 +26,6 @@ for hash in nList:
       else:
         distributions[calc["name"]].append(calc["data"])
 
+# replace the distributions collection with an updated copy, creating it if it doesn't exist
 db.distributions.update_one({"name": "main"}, {"$set": {"values": distributions}}, upsert=True)
 print("Distributions compiled for all networks.")

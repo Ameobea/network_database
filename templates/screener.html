@@ -1,10 +1,12 @@
 {% extends "layout.html" %}
 {% block head %}
 <title>Network Screener</title>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="../sources/highcharts-histogram/highcharts-histogram.js"></script>
 {% endblock %}
 
 {% block body %}
 <h1>Network Screener</h1>
 <p>The network screener allows you to filter networks in the database over multiple criteria.  </p>
-<p>TODO</p>
+{{ dHistogram("nodeCount", "Node Count", distributions) | safe }}
 {% endblock %}
