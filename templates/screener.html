@@ -34,4 +34,23 @@ var distrVals = {};
     {{ sliderGen("transitivity", distributions) | safe }}
   </div>
 </section>
+<section class="grid">
+  <div class="slider">
+    {{ dHistogram("radius", "Radius", distributions) | safe }}
+    {{ sliderGen("radius", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dHistogram("averageClustering", "Average Clustering", distributions) | safe }}
+    {{ sliderGen("averageClustering", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dHistogram("numberConnectedComponents", "Distinct Connected Components", distributions) | safe }}
+    {{ sliderGen("numberConnectedComponents", distributions) | safe }}
+    </div>
+  </div>
+  <div class="slider">
+    {{ dHistogram("degreeAssortativityCoefficient", "Degree Assortativity Coefficient", distributions) | safe }}
+    {{ sliderGen("degreeAssortativityCoefficient", distributions) | safe }}
+  </div>
+</section>
 {% endblock %}
