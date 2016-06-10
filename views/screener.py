@@ -25,6 +25,18 @@ def sliderGen(calcName, distributions):
   res += "\" value=\"100\"></div>\n"
   return res
 
+# Generates the HTML for the True/False selection options
+def boolGen(calcName, distributions):
+  res  = "<label class=\"checkbox\">"
+  res += "<input value=\"False\"type=\"checkbox\" class="
+  res += "\"valCheckbox\" id=\"boolFalse-" + calcName + "\" checked>"
+  res += "<span class=\"checkbox__label\">False</label>"
+  res += "<label class=\"checkbox\">"
+  res += "<input value=\"True\"type=\"checkbox\" class="
+  res += "\"valCheckbox\" id=\"boolTrue-" + calcName + "\" checked>"
+  res += "<span class=\"checkbox__label\">True</label>"
+  return res
+
 # Generates the HTML for the histograms that display the distributions
 # of network attributes above the sliders
 def dHistogram(calcName, clearName, distributions):
@@ -34,22 +46,28 @@ def dHistogram(calcName, clearName, distributions):
     res += str(p) + ","
   res += "];\n"
   res += (
-    "$('#" + calcName + "Histogram').highcharts({\n"
-      "title: {text: \"\"},\n"
-      "chart: {type: \"histogram\", height: 185, spacingLeft: 0, spacingRight: 0},\n"
-      "series: [{data: data, showInLegend: false}],\n"
-      "legend: {enabled: false},\n"
-      "yAxis: {labels: {enabled: false}, title: {text: \"\" }}\n"
-    "});\n"
+      "if(data && data.length > 0){"
+        "$('#" + calcName + "Histogram').highcharts({\n"
+          "title: {text: \"" + clearName + "\"},\n"
+          "chart: {type: \"histogram\", height: 185, spacingLeft: 0, spacingRight: 0},\n"
+          "series: [{data: data, showInLegend: false}],\n"
+          "legend: {enabled: false},\n"
+          "yAxis: {labels: {enabled: false}, title: {text: \"\" }}\n"
+        "});\n"
+      "}\n"
     "});\n"
     "</script>"
     "<div id='" + calcName + "Histogram'></div>"
   )
   return res
 
+def dBoolgram(calcName, clearName, distributions):
+  distributions[calcName] = map(lambda x: int(x), distributions[calcName]) # Convert True to 1 and False to 0
+  return dHistogram(calcName, clearName, distributions)
+
 # Injects helper functions into template and returns its rendered form
 def render():
   # unpacks the [{"res": val}, ...] distributions into just [val, val, ...]
   distributions = {k: map(lambda x: x["res"], v) for k, v in dbQuery.getDistributions()["values"].items()}
   return render_template("screener.html", conf=conf, dHistogram=dHistogram, distributions=distributions,
-      sliderGen=sliderGen)
+      sliderGen=sliderGen, dBoolgram=dBoolgram, boolGen=boolGen)

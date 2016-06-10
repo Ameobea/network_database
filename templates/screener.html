@@ -53,4 +53,26 @@ var distrVals = {};
     {{ sliderGen("degreeAssortativityCoefficient", distributions) | safe }}
   </div>
 </section>
+<section class="grid">
+  <div class="slider">
+    {{ dBoolgram("isDirected", "Directed", distributions) | safe }}
+    {{ boolGen("isDirected", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dBoolgram("isChordal", "Chordal", distributions) | safe }}
+    {{ boolGen("Chordal", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dBoolgram("isConnected", "Connected", distributions) | safe }}
+    {{ boolGen("isConnected", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dBoolgram("isEulerian", "Eulerian", distributions) | safe }}
+    {{ boolGen("isEulerian", distributions) | safe }}
+  </div>
+  <div class="slider">
+    {{ dBoolgram("isBipartite", "Bipartite", distributions) | safe }}
+    {{ boolGen("isBipartite", distributions) | safe }}
+  </div>
+</section>
 {% endblock %}
