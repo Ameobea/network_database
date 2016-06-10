@@ -14,15 +14,15 @@ def sliderGen(calcName, distributions):
   res = "<div id=\"valueMin-" + calcName + "\" class=\"sliderVal ta-center\">"
   res += "<input value=\"" + str(min(distributions[calcName]))
   res += "\"size=\"7\" class=\"valInput\" type=\"text\" id=\"valMin-" + calcName
-  res += "\"></div><input type=\"range\" min=\"0\" max=\"100\" class="
+  res += "\"></div><input type=\"range\" min=\"-1\" max=\"101\" class="
   res += "\"fullwidth normalSlider\" id=\"sliderMin-" + calcName
-  res += "\" value=\"0\">"
+  res += "\" value=\"-1\">"
   res += "<div><div id=\"valueMax-" + calcName + "\" class=\"sliderVal ta-center\">\n"
   res += "<input value=\"" + str(max(distributions[calcName]))
   res += "\"size=\"7\" class=\"valInput\" type=\"text\" id=\"valMax-"
-  res += calcName + "\"></div><input type=\"range\" min=\"0\""
-  res += " max=\"100\" class=\"fullwidth normalSlider\" id=\"sliderMax-" + calcName
-  res += "\" value=\"100\"></div>\n"
+  res += calcName + "\"></div><input type=\"range\" min=\"-1\""
+  res += " max=\"101\" class=\"fullwidth normalSlider\" id=\"sliderMax-" + calcName
+  res += "\" value=\"101\"></div>\n"
   return res
 
 # Generates the HTML for the True/False selection options
@@ -50,6 +50,7 @@ def dHistogram(calcName, clearName, distributions):
         "$('#" + calcName + "Histogram').highcharts({\n"
           "title: {text: \"" + clearName + "\"},\n"
           "chart: {type: \"histogram\", height: 185, spacingLeft: 0, spacingRight: 0},\n"
+          "plotOptions: {series: {color: \"#89457e\"}},\n"
           "series: [{data: data, showInLegend: false}],\n"
           "legend: {enabled: false},\n"
           "yAxis: {labels: {enabled: false}, title: {text: \"\" }}\n"
