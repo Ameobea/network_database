@@ -45,6 +45,21 @@ def calcExists(inCalc):
   except Exception, e:
     return False
 
+# bMin and bMax are just like normal python min/max but convert booleans to
+# javaScript-style "false" and "true".
+
+def bMin(inArr):
+  res = min(inArr)
+  if type(res) == bool:
+    return str(res).lower() # convert to javascript-style boolean
+  return res
+
+def bMax(inArr):
+  res = max(inArr)
+  if type(res) == bool:
+    return str(res).lower() # convert to javascript-style boolean
+  return res
+
 # Installs the filters in the global Jinja environment
 def register(environment):
   environment.line_statement_prefix = '%'
@@ -54,7 +69,7 @@ def register(environment):
   environment.filters["commas"] = commaFilter
   environment.filters["len"] = len
   environment.filters["int"] = int
-  environment.filters["min"] = min
-  environment.filters["max"] = max
+  environment.filters["min"] = bMin
+  environment.filters["max"] = bMax
 
   environment.tests["validCalc"] = calcExists

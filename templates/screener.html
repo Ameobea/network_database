@@ -4,6 +4,12 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="../sources/highcharts-histogram/highcharts-histogram.js"></script>
 <script src="../sources/screener.js"></script>
+<script type="text/javascript">
+var distrVals = {};
+{% for attrName, attrData in distributions.iteritems() %}
+  distrVals["{{ attrName }}"] = {min: {{ attrData | min }}, max: {{ attrData | max }} };
+{% endfor %}
+</script>
 {% endblock %}
 
 {% block body %}

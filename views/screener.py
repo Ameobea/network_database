@@ -12,12 +12,12 @@ from helpers import dbQuery, conf
 # ranges of the histogram selections
 def sliderGen(calcName, distributions):
   res = "<div id=\"valueMin-" + calcName + "\" class=\"sliderVal ta-center\">"
-  res += "<input size=\"7\" type=\"text\" id=\"valMin-" + calcName
+  res += "<input size=\"7\" class=\"valInput\" type=\"text\" id=\"valMin-" + calcName
   res += "\"></div><input type=\"range\" min=\"0\" max=\"100\" class="
   res += "\"fullwidth normalSlider\" id=\"sliderMin-" + calcName
   res += "\" value=\"0\">"
   res += "<div><div id=\"valueMax-" + calcName + "\" class=\"sliderVal ta-center\">\n"
-  res += "<input size=\"7\" type=\"text\" id=\"valMax-"
+  res += "<input size=\"7\" class=\"valInput\" type=\"text\" id=\"valMax-"
   res += calcName + "\"></div><input type=\"range\" min=\"0\""
   res += " max=\"100\" class=\"fullwidth normalSlider\" id=\"sliderMax-" + calcName
   res += "\" value=\"100\"></div>\n"
