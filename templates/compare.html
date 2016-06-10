@@ -33,30 +33,30 @@ $(document).ready(function(){
   </th>
 {% endfor %}
 </tr>
-{{ statsRow("Node Count", calcDicts, "nodeCount.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Edge Count", calcDicts, "edgeCount.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Directed", calcDicts, "isDirected.res", jinjaEnv) | safe }}
-{{ statsRow("Chordal", calcDicts, "isChordal.res", jinjaEnv) | safe }}
-{{ statsRow("Radius", calcDicts, "radius.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Density", calcDicts, "density.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
-{# statsRow("Center", calcDicts, "center.res", jinjaEnv) | safe #}
-{{ statsRow("Transitivity", calcDicts, "transitivity.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Connected", calcDicts, "isConnected.res", jinjaEnv) | safe }}
-{# statsRow("Average Neighbor Degree", calcDicts, "averageNeighborDegree.res", jinjaEnv | safe #}
-{# statsRow("Triangles per Node", calcDicts, "trianglesPerNode.res", jinjaEnv | safe #}
-{# statsRow("Closeness Centrality", calcDicts, "closenessCentrality.res", jinjaEnv | safe #}
-{# statsRow("Eigenvector Centrality", calcDicts, "eigenvectorCentrality.res", jinjaEnv | safe #}
-{# statsRow("Betweenness Centrality", calcDicts, "betweennessCentrality.res", jinjaEnv | safe #}
-{{ statsRow("Clique Number", calcDicts, "cliqueNumber.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Average Node Connectivity", calcDicts, "averageNodeConnectivity.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
-{# statsRow("Average Degree Connectivity", calcDicts, "averageDegreeConnectivity.res", jinjaEnv) | safe #}
-{{ statsRow("Number of Connected Components", calcDicts, "numberConnectedComponents.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Degree Assortativity Coefficient", calcDicts, "degreeAssortativityCoefficient.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
-{{ statsRow("Eulerian", calcDicts, "isEulerian.res", jinjaEnv) | safe }}
-{# statsRow("Triadic Census", calcDicts, "triadicCensus.res", jinjaEnv) | safe #}
+{{ statsRow("Node Count", calcDicts, "nodeCount.data.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Edge Count", calcDicts, "edgeCount.data.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Directed", calcDicts, "isDirected.data.res", jinjaEnv) | safe }}
+{{ statsRow("Chordal", calcDicts, "isChordal.data.res", jinjaEnv) | safe }}
+{{ statsRow("Radius", calcDicts, "radius.data.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Density", calcDicts, "density.data.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
+{# statsRow("Center", calcDicts, "center.data.res", jinjaEnv) | safe #}
+{{ statsRow("Transitivity", calcDicts, "transitivity.data.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Connected", calcDicts, "isConnected.data.res", jinjaEnv) | safe }}
+{# statsRow("Average Neighbor Degree", calcDicts, "averageNeighborDegree.data.res", jinjaEnv | safe #}
+{# statsRow("Triangles per Node", calcDicts, "trianglesPerNode.data.res", jinjaEnv | safe #}
+{# statsRow("Closeness Centrality", calcDicts, "closenessCentrality.data.res", jinjaEnv | safe #}
+{# statsRow("Eigenvector Centrality", calcDicts, "eigenvectorCentrality.data.res", jinjaEnv | safe #}
+{# statsRow("Betweenness Centrality", calcDicts, "betweennessCentrality.data.res", jinjaEnv | safe #}
+{{ statsRow("Clique Number", calcDicts, "cliqueNumber.data.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Average Node Connectivity", calcDicts, "averageNodeConnectivity.data.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
+{# statsRow("Average Degree Connectivity", calcDicts, "averageDegreeConnectivity.data.res", jinjaEnv) | safe #}
+{{ statsRow("Number of Connected Components", calcDicts, "numberConnectedComponents.data.res", jinjaEnv, filters=[jinjaEnv.filters.int, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Degree Assortativity Coefficient", calcDicts, "degreeAssortativityCoefficient.data.res", jinjaEnv, filters=[jinjaEnv.filters.float, jinjaEnv.filters.commas]) | safe }}
+{{ statsRow("Eulerian", calcDicts, "isEulerian.data.res", jinjaEnv) | safe }}
+{# statsRow("Triadic Census", calcDicts, "triadicCensus.data.res", jinjaEnv) | safe #}
 {# TODO: Dispersion #}
-{{ statsRow("Bipartite", calcDicts, "isBipartite.res", jinjaEnv) | safe }}
-{# statsRow("Eccentricity", calcDicts, "eccentricity.res", jinjaEnv) | safe #}
-{# statsRow("Rich Club Coefficient", calcDicts, "richClubCoefficient.res", jinjaEnv) | safe #}
+{{ statsRow("Bipartite", calcDicts, "isBipartite.data.res", jinjaEnv) | safe }}
+{# statsRow("Eccentricity", calcDicts, "eccentricity.data.res", jinjaEnv) | safe #}
+{# statsRow("Rich Club Coefficient", calcDicts, "richClubCoefficient.data.res", jinjaEnv) | safe #}
 </tbody></table>
 {% endblock %}

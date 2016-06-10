@@ -1,4 +1,4 @@
-<h2>Network List</h2>
+<h2>Results</h2>
 <table><tbody>
 <tr>
   <th>Add to Compare</th>
@@ -15,7 +15,6 @@
 var start = parseInt({{ start }});
 </script>
 {% set count = request.args.get("results") | count %}
-{% set networkList = dbQuery.getNetworkList(count, request.args.get("sort"), request.args.get("direction"), start) %}
 {% for nHash in networkList %}
   {% set i = i + 1 %}
   {% set network = dbQuery.getNetwork(nHash) %}
@@ -25,7 +24,7 @@ var start = parseInt({{ start }});
     <td><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.name }}</a></td>
     <td><code><a href="{{ conf.ROOT_ADDRESS }}info/{{ network.hash }}">{{ network.hash }}</a></code></span></td>
     <td>{{ network["calculations"]["nodeCount"]["data"]["res"] | commas }}</td>
-    <td>{{ network["calculations"]["nodeCount"]["data"]["res"] | commas }}</td>
+    <td>{{ network["calculations"]["edgeCount"]["data"]["res"] | commas }}</td>
     <td><b>TODO</b></td>
   </tr>
 {% endfor %}
@@ -40,13 +39,11 @@ var start = parseInt({{ start }});
 <script type="text/javascript">
   // Set up click listeners for navigation arrors + comparison add
   $("#nextArrow").click(function(){
-    showResults($("#sort").val(), $("#nResults").val(), $("#sortDirection").val(), start +
-        parseInt($("#nResults").val()));
+    showResults(0, 0, 0, start + 10);
   });
 
   $("#lastArrow").click(function(){
-    showResults($("#sort").val(), $("#nResults").val(), $("#sortDirection").val(), start -
-        parseInt($("#nResults").val()));
+    showResults(0, 0, 0, start - 10);
   });
 
   $(".compAdd").click(function(){

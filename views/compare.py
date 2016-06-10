@@ -21,7 +21,6 @@ def statsRow(name, calcDicts, key, jinjaEnv, filters=[]):
       point = calcDict
       for deep in key.split("."):
         point = point[deep]
-
       data = str(point)
       if filters != []:
         for dataFilter in filters:
@@ -42,6 +41,6 @@ def compare(hashString, jinjaEnv, cookies=None):
     network = dbQuery.getNetwork(hash)
     if type(network) != bool:
       networks.append(network)
-      calcDicts.append(jinjaSetup.calcDictFilter(network["calculations"]))
+      calcDicts.append(network["calculations"])
   return render_template("compare.html", conf=conf, networks=networks,
       statsRow=statsRow, calcDicts=calcDicts, jinjaEnv=jinjaEnv)

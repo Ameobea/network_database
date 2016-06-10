@@ -17,7 +17,23 @@ $(document).ready(function(){
     $("#slider" + type + "-" + calcName).val(Math.round(sliderVal));
     zoneBars(parseFloat($("#valMin-" + calcName).val()), parseFloat($("#valMax-" + calcName).val()), calcName)
   });
+
+  // Sets up the submit button listener
+  $("#submitButton").click(function(){
+    showResults(0, 0, 0, 0, descrimGen());
+  });
 });
+
+// Makes the request for the results sub-view and inserts it in the results div
+function showResults(sort, count, direction, start, descrim){
+  $("#results").html("Loading...");
+  $.get("../parts/screenResults?sort=" + sort + "&results=" +
+      count + "&direction=" + direction +
+      "&start=" + start + "&descrim=" + btoa(JSON.stringify(descrim)), //encode descrim object in base64
+      function(res){
+    $("#results").html(res);
+  });
+}
 
 // Changes the colors of regions of a given chart to grey
 function zoneBars(dataStart, dataEnd, calcName){
@@ -29,4 +45,41 @@ function zoneBars(dataStart, dataEnd, calcName){
     {value: chart.series[0].xData, color: "#c9c9c9"}
   ];
   chart.redraw();
+}
+
+// Takes the selection values from the histograms and converts them into
+// a list to be made into a query for MongoDB
+function descrimGen(){
+  res = {};
+  // get sliders
+  $(".slider input").each(function(){
+    var split = this.id.split("-");
+    if(this.type == "text"){ // ignore the range selectors
+      if(split[0] == "valMin"){
+        if(!res[split[1]]){
+          res[split[1]] = {};
+        }
+        res[split[1]]["min"] = parseFloat(this.value);
+      }else{
+        if(!res[split[1]]){
+          res[split[1]] = {};
+        }
+        res[split[1]]["max"] = parseFloat(this.value);
+      }
+    }
+  });
+
+  // get true/false checkboxes
+  $(".boolSelect input").each(function(){
+    var split = this.id.split("-");
+    if(!res[split[1]]){
+      res[split[1]] = {};
+    }
+    if(this.value == "True"){
+      res[split[1]]["True"] = this.checked;
+    }else{
+      res[split[1]]["False"] = this.checked;
+    }
+  });
+  return res;
 }

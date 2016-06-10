@@ -18,13 +18,14 @@ distributions = {}
 
 for hash in nList:
   network = dbQuery.getNetwork(hash)
-  for calc in network["calculations"]:
+  for calcName, calcData in network["calculations"].iteritems():
     # non-numerical data types and errors are useless/wasteful for this
-    if not("error" in calc["data"]) and type(calc["data"]["res"]) != dict and type(calc["data"]["res"]) != list:
-      if not(calc["name"] in distributions):
-        distributions[calc["name"]] = [calc["data"]]
+    if not("error" in calcData["data"]) and type(calcData["data"]["res"]) != dict and \
+        type(calcData["data"]["res"]) != list:
+      if not(calcName in distributions):
+        distributions[calcName] = [calcData["data"]]
       else:
-        distributions[calc["name"]].append(calc["data"])
+        distributions[calcName].append(calcData["data"])
 
 # replace the distributions collection with an updated copy, creating it if it doesn't exist
 db.distributions.update_one({"name": "main"}, {"$set": {"values": distributions}}, upsert=True)

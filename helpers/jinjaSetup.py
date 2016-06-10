@@ -16,13 +16,6 @@ def countFilter(count):
   except Exception, e:
     return 10
 
-# Converts list of calculations into dictionary
-def calcDictFilter(calcList):
-  res = {}
-  for calc in calcList:
-    res[calc["name"]] = calc["data"]
-  return res
-
 # Adds commas in to a number
 def commaFilter(inNum):
   if type(inNum) == int or type(inNum) == float:
@@ -65,7 +58,6 @@ def register(environment):
   environment.line_statement_prefix = '%'
 
   environment.filters["count"] = countFilter
-  environment.filters["calcDict"] = calcDictFilter
   environment.filters["commas"] = commaFilter
   environment.filters["len"] = len
   environment.filters["int"] = int

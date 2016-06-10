@@ -1,7 +1,5 @@
 # Database interface
 #
-# Casey Primozic
-#
 # Contains functions pertaining to the database and allowing easier access to it.
 
 import sys
@@ -27,7 +25,7 @@ def getNetwork(networkHash):
     return False
 
 # Returns a list of the hashes of the first `limit` networks in the database
-def getNetworkList(limit, sortBy, sortDirection, start, db=False):
+def getNetworkList(limit, sortBy, sortDirection, start, db=False, descrim={}):
   if type(limit) == bool:
     limit = 0
   if sortBy != "name" and sortBy != "hash" and sortBy != "uploadDate":
@@ -38,7 +36,7 @@ def getNetworkList(limit, sortBy, sortDirection, start, db=False):
     sortDirection = -1
   if type(db) == bool:
     db = getDb()
-  cursor = db.networks.find({}, {"hash": 1}).skip(start).limit(limit).sort(sortBy, sortDirection)
+  cursor = db.networks.find(descrim, {"hash": 1}).skip(start).limit(limit).sort(sortBy, sortDirection)
   networks = []
   for network in cursor:
     networks.append(network["hash"])

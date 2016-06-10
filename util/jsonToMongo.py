@@ -40,7 +40,10 @@ def importMain(filename):
     cursor = db.networks.find({"hash": networkHash})
     if cursor.count() == 0:
       try:
-        db.networks.insert_one({"hash": networkHash, "name": networkName, "calculations": networkData})
+        calculations = {}
+        for calc in networkData:
+          calculations[calc["name"]] = calc
+        db.networks.insert_one({"hash": networkHash, "name": networkName, "calculations": calculations})
       except Exception, e:
         print("Couldn't insert network " + networkName + " because some of its values contain `.`s.  ")
     else:

@@ -1,9 +1,10 @@
 # Entry point for database web interface
 #
 # Written by Casey Primozic
+
 from flask import Flask, render_template, send_from_directory, request
-from helpers import conf, dbQuery, networkUtils, jinjaSetup
-from views import compare, screener
+from helpers import conf, dbQuery, jinjaSetup
+from views import compare, screener, screenResults
 
 app = Flask(__name__)
 
@@ -37,14 +38,14 @@ def networkInfo(networkHash):
 
 @app.route("/browse")
 def browseNetworks():
-  return render_template("browse.html", conf=conf,
-      networkUtils=networkUtils, dbQuery=dbQuery)
+  return render_template("browse.html", conf=conf, dbQuery=dbQuery)
 
 @app.route("/parts/<page>")
 def parts(page):
   if page == "browseResults":
-    return render_template("mixins/browseResults.html", conf=conf, dbQuery=dbQuery,
-        networkUtils=networkUtils)
+    return render_template("mixins/browseResults.html", conf=conf, dbQuery=dbQuery)
+  elif page == "screenResults":
+    return screenResults.render(request.args)
 
 @app.route("/admin")
 def admin():

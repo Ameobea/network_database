@@ -11,14 +11,29 @@ from helpers import dbQuery, conf
 # Generates the HTML for the double sliders to control the
 # ranges of the histogram selections
 def sliderGen(calcName, distributions):
+  minVal = min(distributions[calcName])
+  maxVal = max(distributions[calcName])
+
+  # Max the range a bit more inclusive to deal with floating point horrors
+  if type(minVal) == float:
+    if minVal < 0:
+      minVal *= 1.0001
+    else:
+      minVal *= .9999
+  if type(maxVal) == float:
+    if maxVal < 0:
+      maxVal *= .9999
+    else:
+      maxVal *= 1.0001
+
   res = "<div id=\"valueMin-" + calcName + "\" class=\"sliderVal ta-center\">"
-  res += "<input value=\"" + str(min(distributions[calcName]))
+  res += "<input value=\"" + str(minVal)
   res += "\"size=\"7\" class=\"valInput\" type=\"text\" id=\"valMin-" + calcName
   res += "\"></div><input type=\"range\" min=\"-1\" max=\"101\" class="
   res += "\"fullwidth normalSlider\" id=\"sliderMin-" + calcName
   res += "\" value=\"-1\">"
   res += "<div><div id=\"valueMax-" + calcName + "\" class=\"sliderVal ta-center\">\n"
-  res += "<input value=\"" + str(max(distributions[calcName]))
+  res += "<input value=\"" + str(maxVal)
   res += "\"size=\"7\" class=\"valInput\" type=\"text\" id=\"valMax-"
   res += calcName + "\"></div><input type=\"range\" min=\"-1\""
   res += " max=\"101\" class=\"fullwidth normalSlider\" id=\"sliderMax-" + calcName

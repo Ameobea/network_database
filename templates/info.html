@@ -33,7 +33,7 @@ $(document).ready(function(){
 {% block body %}
 <h1>Network Information for <span class="fw-bold">{{ network.name }}</span></h1>
 <span class="compare-add compAdd fs-large" id="comp-add-{{ networkHash }}">+</span> Click the symbol to the left to add or remove this network from the <a href="../../compare">comparison table</a>.
-{% set calcDict = network["calculations"] | calcDict %}
+{% set calcDict = network["calculations"] %}
 <div class="borderTop">
 <span class="fw-bold">Description: </span>
 {% if network.description %}
@@ -57,19 +57,19 @@ $(document).ready(function(){
 <h2>Data Table</h2>
 <table><tbody class="striped">
 <tr><th>Name</th><th>Result</th></tr>
-{% if calcDict["nodeCount"] is validCalc %}
-<tr><td>Nodes</td><td>{{ calcDict["nodeCount"]["res"] | commas }}</td></tr>
+{% if calcDict["nodeCount"]["data"] is validCalc %}
+<tr><td>Nodes</td><td>{{ calcDict["nodeCount"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["edgeCount"] is validCalc %}
-<tr><td>Edges</td><td>{{ calcDict["edgeCount"]["res"] | commas }}</td></tr>
+{% if calcDict["edgeCount"]["data"] is validCalc %}
+<tr><td>Edges</td><td>{{ calcDict["edgeCount"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["degree"] is validCalc %}
+{% if calcDict["degree"]["data"] is validCalc %}
 <tr><td>Degree Histogram</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["degree"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["degree"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#degreeHistogram').highcharts({
@@ -82,34 +82,34 @@ $(document).ready(function(){
 <div id="degreeHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["density"] is validCalc %}
-<tr><td>Density</td><td>{{ calcDict["density"]["res"] | commas }}</td></tr>
+{% if calcDict["density"]["data"] is validCalc %}
+<tr><td>Density</td><td>{{ calcDict["density"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["isDirected"] is validCalc %}
-<tr><td>Directed</td><td>{{ calcDict["isDirected"]["res"] | commas }}</td></tr>
+{% if calcDict["isDirected"]["data"] is validCalc %}
+<tr><td>Directed</td><td>{{ calcDict["isDirected"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["isChordal"] is validCalc %}
-<tr><td>Chordal</td><td>{{ calcDict["isChordal"]["res"] | commas }}</td></tr>
+{% if calcDict["isChordal"]["data"] is validCalc %}
+<tr><td>Chordal</td><td>{{ calcDict["isChordal"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["radius"] is validCalc %}
-<tr><td>Radius</td><td>{{ calcDict["radius"]["res"] | commas }}</td></tr>
+{% if calcDict["radius"]["data"] is validCalc %}
+<tr><td>Radius</td><td>{{ calcDict["radius"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["center"] is validCalc %}
-<tr><td>Center</td><td>{{ calcDict["center"]["res"] | commas }}</td></tr>
+{% if calcDict["center"]["data"] is validCalc %}
+<tr><td>Center</td><td>{{ calcDict["center"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["transitivity"] is validCalc %}
-<tr><td>Transitivity</td><td>{{ calcDict["transitivity"]["res"] | commas }}</td></tr>
+{% if calcDict["transitivity"]["data"] is validCalc %}
+<tr><td>Transitivity</td><td>{{ calcDict["transitivity"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["isConnected"] is validCalc %}
-<tr><td>Connected</td><td>{{ calcDict["isConnected"]["res"] | commas }}</td></tr>
+{% if calcDict["isConnected"]["data"] is validCalc %}
+<tr><td>Connected</td><td>{{ calcDict["isConnected"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["averageNeighborDegree"] is validCalc %}
+{% if calcDict["averageNeighborDegree"]["data"] is validCalc %}
 <tr><td>Average Neighbor Degree</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["averageNeighborDegree"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["averageNeighborDegree"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#averageNeighborDegreeHistogram').highcharts({
@@ -122,16 +122,16 @@ $(document).ready(function(){
 <div id="averageNeighborDegreeHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["averageClustering"] is validCalc %}
-<tr><td>Average Clustering</td><td>{{ calcDict["averageClustering"]["res"] | commas }}</td></tr>
+{% if calcDict["averageClustering"]["data"] is validCalc %}
+<tr><td>Average Clustering</td><td>{{ calcDict["averageClustering"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["trianglesPerNode"] is validCalc %}
+{% if calcDict["trianglesPerNode"]["data"] is validCalc %}
 <tr><td>Triangles Per Node</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["trianglesPerNode"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["trianglesPerNode"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#trianglesPerNodeHistogram').highcharts({
@@ -144,13 +144,13 @@ $(document).ready(function(){
 <div id="trianglesPerNodeHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["closenessCentrality"] is validCalc %}
+{% if calcDict["closenessCentrality"]["data"] is validCalc %}
 <tr><td>Closeness Centrality</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["closenessCentrality"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["closenessCentrality"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#closenessCentralityHistogram').highcharts({
@@ -163,13 +163,13 @@ $(document).ready(function(){
 <div id="closenessCentralityHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["eigenvectorCentrality"] is validCalc %}
+{% if calcDict["eigenvectorCentrality"]["data"] is validCalc %}
 <tr><td>Eigenvector Centrality</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["eigenvectorCentrality"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["eigenvectorCentrality"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#eigenvectorHistogram').highcharts({
@@ -182,13 +182,13 @@ $(document).ready(function(){
 <div id="eigenvectorHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["betweennessCentrality"] is validCalc %}
+{% if calcDict["betweennessCentrality"]["data"] is validCalc %}
 <tr><td>Betweenness Centrality</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["betweennessCentrality"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["betweennessCentrality"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#betweennessHistogram').highcharts({
@@ -201,19 +201,19 @@ $(document).ready(function(){
 <div id="betweennessHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["cliqueNumber"] is validCalc %}
-<tr><td>Cliques</td><td>{{ calcDict["cliqueNumber"]["res"] | commas }}</td></tr>
+{% if calcDict["cliqueNumber"]["data"] is validCalc %}
+<tr><td>Cliques</td><td>{{ calcDict["cliqueNumber"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["averageNodeConnectivity"] is validCalc %}
-<tr><td>Average Node Connectivity</td><td>{{ calcDict["averageNodeConnectivity"]["res"] | commas }}</td></tr>
+{% if calcDict["averageNodeConnectivity"]["data"] is validCalc %}
+<tr><td>Average Node Connectivity</td><td>{{ calcDict["averageNodeConnectivity"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["averageDegreeConnectivity"] is validCalc %}
+{% if calcDict["averageDegreeConnectivity"]["data"] is validCalc %}
 <tr><td>Average Degree Connectivity</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["averageDegreeConnectivity"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["averageDegreeConnectivity"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#averageDegreeConnectivityHistogram').highcharts({
@@ -226,22 +226,22 @@ $(document).ready(function(){
 <div id="averageDegreeConnectivityHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["numberConnectedComponents"] is validCalc %}
-<tr><td>Distinct Connected Components</td><td>{{ calcDict["numberConnectedComponents"]["res"] | commas }}</td></tr>
+{% if calcDict["numberConnectedComponents"]["data"] is validCalc %}
+<tr><td>Distinct Connected Components</td><td>{{ calcDict["numberConnectedComponents"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["degreeAssortativityCoefficient"] is validCalc %}
-<tr><td>Degree Assortativity Coefficient</td><td>{{ calcDict["degreeAssortativityCoefficient"]["res"] | commas }}</td></tr>
+{% if calcDict["degreeAssortativityCoefficient"]["data"] is validCalc %}
+<tr><td>Degree Assortativity Coefficient</td><td>{{ calcDict["degreeAssortativityCoefficient"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["isEulerian"] is validCalc %}
-<tr><td>Eulerian</td><td>{{ calcDict["isEulerian"]["res"] | commas }}</td></tr>
+{% if calcDict["isEulerian"]["data"] is validCalc %}
+<tr><td>Eulerian</td><td>{{ calcDict["isEulerian"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["triadicCensus"] is validCalc %}
+{% if calcDict["triadicCensus"]["data"] is validCalc %}
 <tr><td>Triadic Census</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["triadicCensus"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["triadicCensus"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#triadicCensusHistogram').highcharts({
@@ -254,13 +254,13 @@ $(document).ready(function(){
 <div id="triadicCensusHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["dispersion"] is validCalc %}
+{% if calcDict["dispersion"]["data"] is validCalc %}
 <tr><td>Dispersion</td>
 <td>
 <!-- <script type="text/javascript">
 $(document).ready(function(){
   var data = [
-  {% for elem in calcDict["dispersion"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
+  {% for elem in calcDict["dispersion"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}
   ];
 
   $('#dispersionHistogram').highcharts({
@@ -274,15 +274,15 @@ $(document).ready(function(){
 TODO
 </td></tr>
 {% endif %}
-{% if calcDict["isBipartite"] is validCalc %}
-<tr><td>Bipartite</td><td>{{ calcDict["isBipartite"]["res"] | commas }}</td></tr>
+{% if calcDict["isBipartite"]["data"] is validCalc %}
+<tr><td>Bipartite</td><td>{{ calcDict["isBipartite"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
-{% if calcDict["eccentricity"] is validCalc %}
+{% if calcDict["eccentricity"]["data"] is validCalc %}
 <tr><td>Eccentricity</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
-  var data = [{% for elem in calcDict["eccentricity"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}];
+  var data = [{% for elem in calcDict["eccentricity"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}];
 
   $('#eccentricityHistogram').highcharts({
     title: {text: 'Eccentricity Distibution'},
@@ -294,12 +294,12 @@ $(document).ready(function(){
 <div id="eccentricityHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["richClubCoefficient"] is validCalc %}
+{% if calcDict["richClubCoefficient"]["data"] is validCalc %}
 <tr><td>Rich Club Coefficient</td>
 <td>
 <script type="text/javascript">
 $(document).ready(function(){
-  var data = [{% for elem in calcDict["richClubCoefficient"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}];
+  var data = [{% for elem in calcDict["richClubCoefficient"]["data"]["res"].iteritems() %}{{ elem[1] }},{% endfor %}];
 
   $('#richClubCoefficientHistogram').highcharts({
     title: {text: 'Rich Club Coefficient Distibution'},
@@ -311,8 +311,8 @@ $(document).ready(function(){
 <div id="richClubCoefficientHistogram"></div>
 </td></tr>
 {% endif %}
-{% if calcDict["flowHierarchy"] is validCalc %}
-<tr><td>Flow Hierarchy</td><td>{{ calcDict["flowHierarchy"]["res"] | commas }}</td></tr>
+{% if calcDict["flowHierarchy"]["data"] is validCalc %}
+<tr><td>Flow Hierarchy</td><td>{{ calcDict["flowHierarchy"]["data"]["res"] | commas }}</td></tr>
 {% endif %}
 </tbody></table>
 {% endblock %}

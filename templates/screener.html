@@ -54,23 +54,23 @@ var distrVals = {};
   </div>
 </section>
 <section class="grid">
-  <div class="slider">
+  <div class="boolSelect">
     {{ dBoolgram("isDirected", "Directed", distributions) | safe }}
     {{ boolGen("isDirected", distributions) | safe }}
   </div>
-  <div class="slider">
+  <div class="boolSelect">
     {{ dBoolgram("isChordal", "Chordal", distributions) | safe }}
     {{ boolGen("Chordal", distributions) | safe }}
   </div>
-  <div class="slider">
+  <div class="boolSelect">
     {{ dBoolgram("isConnected", "Connected", distributions) | safe }}
     {{ boolGen("isConnected", distributions) | safe }}
   </div>
-  <div class="slider">
+  <div class="boolSelect">
     {{ dBoolgram("isEulerian", "Eulerian", distributions) | safe }}
     {{ boolGen("isEulerian", distributions) | safe }}
   </div>
-  <div class="slider">
+  <div class="boolSelect">
     {{ dBoolgram("isBipartite", "Bipartite", distributions) | safe }}
     {{ boolGen("isBipartite", distributions) | safe }}
   </div>
