@@ -4,7 +4,7 @@
 
 from flask import Flask, render_template, send_from_directory, request
 from helpers import conf, dbQuery, jinjaSetup
-from views import compare, screener, screenResults
+from views import compare, screener, screenResults, resCorrelations
 
 app = Flask(__name__)
 
@@ -58,6 +58,17 @@ def serveData(path):
 @app.route("/sources/highcharts-historgram/<path:path>")
 def highchartsHistogram(path):
   return send_from_directory("sources/highcharts-historgram", path)
+
+@app.route("/correlate")
+def correlations():
+  if request.method == 'POST':
+    return resCorrelations.render(b64=request.form["b64"])
+  else:
+    return render_template("error.html", conf=conf)
+
+@app.route("/humans.txt")
+def serverHumanstxt():
+  return render_template("humans.txt"), 200, {'Content-Type': 'text/plain; charset=utf-8'}
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', debug=True)

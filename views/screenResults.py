@@ -31,7 +31,6 @@ def queryGen(in64):
         {resName: {"$exists": False}}, # if calculation isn't in database
         {resName: {"$gte": calcValue["min"], "$lte": calcValue["max"]}}
       ]})
-  print res
   return res
 
 def render(args):

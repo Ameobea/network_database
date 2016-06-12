@@ -16,6 +16,8 @@ def getDb():
 
 # Returns a network from the database with the given hash.
 # If it doesn't exist, returns False.
+#
+# TODO: Possibly look into limiting the fields that are returned to save system resources
 def getNetwork(networkHash):
   db = getDb()
   res = db.networks.find_one({"hash": networkHash})
