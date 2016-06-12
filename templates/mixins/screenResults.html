@@ -36,6 +36,11 @@ var start = parseInt({{ start }});
 {% if networkList | len == count %}
   <span class="fake-link" id="nextArrow">></span>
 {% endif %}
+<p>View correlation information for these results</p>
+<form action="{{ conf.SITE_ROOT }}/correlate" method="post">
+  <input type="hidden" name="b64" value="{{ networkList | jsone | b64e }}">
+  <input type="submit" value="View Correlations" id="correlationButton">
+</form>
 <script type="text/javascript">
   // Set up click listeners for navigation arrors + comparison add
   $("#nextArrow").click(function(){

@@ -1,0 +1,32 @@
+{# Result Correlations Visualizer #}
+{# Creates scatter plots to visualize the correlations between individual networks in a set of networks #}
+
+{% extends "layout.html" %}
+{% block head %}
+<title>Network Comparison</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="../sources/resCorrelations.js"></script>
+{% endblock %}
+
+{% block body %}
+<h1>Result Correlations</h1>
+<section class="grid" id="settings">
+<div>
+  <label for="attr1">Attribute 1</label>
+  <select>
+  {{ attrOptions | safe }}
+  </select>
+  <br>
+  <label for="attr2">Attribute 2</label>
+  <select>
+  {{ attrOptions | safe }}
+  </select>
+</div>
+<div>
+  Test
+</div>
+</section>
+<div id="scatterplot"></div>
+<input type="button" value="Export data">
+{% endblock %}

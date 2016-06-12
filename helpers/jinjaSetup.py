@@ -2,7 +2,7 @@
 #
 # Registers some functions that are used in the Jinja templating system by the site
 
-import re
+import base64, json
 from jinja2 import evalcontextfilter, Markup, escape
 
 # Makes sure string input is a number 1-50 and returns int form; if not returns 10
@@ -63,5 +63,9 @@ def register(environment):
   environment.filters["int"] = int
   environment.filters["min"] = bMin
   environment.filters["max"] = bMax
+  environment.filters["b64e"] = base64.b64encode
+  environment.filters["b64d"] = base64.b64decode
+  environment.filters["jsone"] = json.dumps
+  environment.filters["jsond"] = json.loads
 
   environment.tests["validCalc"] = calcExists

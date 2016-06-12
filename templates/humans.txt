@@ -1,0 +1,22 @@
+/* OWNER */
+
+  Casey Primozic
+  GitHub Profile: https://github.com/Ameobea
+  Location: Indiana, USA
+  Website: http://ameobea.me/
+  Organization: Valparaiso University
+
+/* THANKS */
+
+  Valparaiso University + Valparaiso University Computer Science Dept.
+
+/* CONTRIBUTORS */
+
+  Casey Primozic
+  GitHub Profile: https://github.com/Ameobea
+  Location: Indiana, USA
+  Website: http://ameobea.me/
+
+  Sammantha Nowak-Wolf
+
+  AnnaLee Knapp

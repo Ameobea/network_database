@@ -54,6 +54,15 @@ tbody.striped tr:nth-child(odd){
   width: 100%;
 }
 
-input {
+input, select, option {
   border: 1px solid black;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+}
+
+select {
+  display: inline-block;
 }

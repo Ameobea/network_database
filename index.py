@@ -59,7 +59,7 @@ def serveData(path):
 def highchartsHistogram(path):
   return send_from_directory("sources/highcharts-historgram", path)
 
-@app.route("/correlate")
+@app.route("/correlate", methods=['GET', 'POST'])
 def correlations():
   if request.method == 'POST':
     return resCorrelations.render(b64=request.form["b64"])
