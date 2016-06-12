@@ -20,13 +20,12 @@ def queryGen(in64):
   for calcName, calcValue in inDict.iteritems():
     resName = "calculations." + calcName + ".data.res"
     if "True" in calcValue: # boolean
-      res["$and"].append({"$or": [
-        {resName: {"$exists": False}},
-        {"$or": [
-          {resName: {"$eq": calcValue["True"]}},
-          {resName: {"$ne": calcValue["False"]}}
+      if not(calcValue["True"] and calcValue["False"]): # if both true and false checked don't even bother
+        resObj = {"$or": [
+          {resName: {"$exists": False}},
+          {resName: calcValue["True"]} # either one or the other or neither; in any case calcValue["True"] is what it should be
         ]}
-      ]})
+        res["$and"].append(resObj)
     else:
       res["$and"].append({"$or": [ # max/min
         {resName: {"$exists": False}}, # if calculation isn't in database

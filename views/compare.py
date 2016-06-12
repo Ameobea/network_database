@@ -34,13 +34,17 @@ def statsRow(name, calcDicts, key, jinjaEnv, filters=[]):
 # do some calculations and inject into template, then return rendered template
 def compare(hashString, jinjaEnv, cookies=None):
   if type(hashString) == bool:
-    hashString = cookies.get("compare").replace("%2C", ",")
-  networks = []
-  calcDicts = []
-  for hash in hashString.split(","):
-    network = dbQuery.getNetwork(hash)
-    if type(network) != bool:
-      networks.append(network)
-      calcDicts.append(network["calculations"])
-  return render_template("compare.html", conf=conf, networks=networks,
-      statsRow=statsRow, calcDicts=calcDicts, jinjaEnv=jinjaEnv)
+    hashString = cookies.get("compare")
+  if hashString != None and hashString != "":
+    hashString = hashString.replace("%2C", ",")
+    networks = []
+    calcDicts = []
+    for hash in hashString.split(","):
+      network = dbQuery.getNetwork(hash)
+      if type(network) != bool:
+        networks.append(network)
+        calcDicts.append(network["calculations"])
+    return render_template("compare.html", conf=conf, networks=networks,
+        statsRow=statsRow, calcDicts=calcDicts, jinjaEnv=jinjaEnv)
+  else:
+    return render_template("compareNoNetworks.html", conf=conf)

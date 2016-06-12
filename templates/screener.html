@@ -3,6 +3,8 @@
 <title>Network Screener</title>
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="../sources/highcharts-histogram/highcharts-histogram.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
+<script src="../sources/compareAdd.js"></script>
 <script src="../sources/screener.js"></script>
 <script type="text/javascript">
 var distrVals = {};
@@ -60,7 +62,7 @@ var distrVals = {};
   </div>
   <div class="boolSelect">
     {{ dBoolgram("isChordal", "Chordal", distributions) | safe }}
-    {{ boolGen("Chordal", distributions) | safe }}
+    {{ boolGen("isChordal", distributions) | safe }}
   </div>
   <div class="boolSelect">
     {{ dBoolgram("isConnected", "Connected", distributions) | safe }}

@@ -14,7 +14,7 @@ def sliderGen(calcName, distributions):
   minVal = min(distributions[calcName])
   maxVal = max(distributions[calcName])
 
-  # Max the range a bit more inclusive to deal with floating point horrors
+  # Make the range a bit more inclusive to deal with floating point horrors
   if type(minVal) == float:
     if minVal < 0:
       minVal *= 1.0001

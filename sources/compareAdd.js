@@ -1,5 +1,8 @@
 function compareAdd(hash){ // Add it to cookie
   var cookieValue = Cookies.get("compare");
+  if(cookieValue == undefined){
+    cookieValue = "";
+  }
   cookieValue = cookieValue.replace("%20", ",");
   if(cookieValue){
     var splitCookie = cookieValue.split(",");
