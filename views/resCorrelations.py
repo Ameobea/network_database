@@ -35,15 +35,34 @@ def genAttrOptions(networks):
     res += "  <option value=\"" + attr + "\">" + attr + "</option>\n"
   return res
 
-# Removes non-numerical data from network calculations and prepares them for JSON-serialization
-def stripNetworks(networks):
-  for i in range(0, len(networks)):
-    networks[i]["_id"] = None
-    for calcName, calcValue in networks[i]["calculations"].iteritems():
-      for subcalcName, subcalcValue in calcValue["data"].iteritems():
-        if type(subcalcValue) == dict or type(subcalcValue) == list:
-          networks[i]["calculations"][calcName]["data"][subcalcName] = None
-  return json.dumps(networks).replace("'", " ")
+# Returns the index of the element in inList that has a hash of hash
+# if it doesn't exist, returns -1
+def hashListFilter(hashList, inHash):
+  for i in range(0,len(hashList)):
+    if hashList[i] == inHash:
+      return i
+      break
+  return -1
+
+# Responsible for generating attribute data and displaying it in
+# the /data endpoing for two different subcalculations
+def data(b64, calc1, subcalc1, calc2, subcalc2):
+  nList = json.loads(base64.b64decode(b64))
+  calc1name = "calculations." + calc1 + ".data." + subcalc1
+  calc2name = "calculations." + calc2 + ".data." + subcalc2
+  res1 = dbQuery.getNetworks(nList, {"hash": 1, calc1name: 1, calc2name: 1, "name": 1})
+
+  hashMap = []
+  res = []
+  for network in res1:
+    calculations = network["calculations"]
+    try:
+      hashMap.append({"hash": network["hash"], "name": network["name"]})
+      res.append([calculations[calc1]["data"][subcalc1],
+          calculations[calc2]["data"][subcalc2]])
+    except Exception, e:
+      pass
+  return render_template("mixins/attributePairs.html", data=res, hashList=hashMap)
 
 def render(b64=""):
   nList = json.loads(base64.b64decode(b64))
@@ -52,5 +71,4 @@ def render(b64=""):
     networks.append(dbQuery.getNetwork(nHash))
   attrOptions = genAttrOptions(networks)
   return render_template("resCorrelations.html", conf=conf, networks=networks,
-      attrOptions=attrOptions, suboptionDeclarations=genSubopts(networks),
-      strippedNetworks=stripNetworks(networks))
+      attrOptions=attrOptions, suboptionDeclarations=genSubopts(networks), b64=b64)

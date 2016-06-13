@@ -1,5 +1,5 @@
 "use strict";
-/*jslint browser: true*/ /*global  $, console, suboptMaps, networks*/
+/*jslint browser: true*/ /*global  $, console, suboptMaps, networkListb64*/
 
 // Used to keep track of the names of networks in the scatter plor
 var corrNetworks = [];
@@ -18,28 +18,19 @@ function suboptGen(suboptName, suboptMap, num){
 
 // Generates a list of correlation data to be plotted for each network
 // that contains valid data, inserts into chart series, and redraws chart
-function genCorrelations(corr1, corr2, subcorr1, subcorr2){
-  console.log(corr1, corr2, subcorr1, subcorr2);
-  var res = [];
-  for(var i=0;i<networks.length;i++){
-    if(networks[i].calculations[corr1].data[subcorr1] &&
-        networks[i].calculations[corr2].data[subcorr2]){ // both subcalcs exist
-      res.push([
-        networks[i].calculations[corr1].data[subcorr1],
-        networks[i].calculations[corr2].data[subcorr2]
-      ]);
-      //Store network metadata in global variable for use in formatter
-      corrNetworks.push({name: networks[i].name, hash: networks[i].hash});
-    }
-  }
-
-  var scatterplot = $("#scatterplot").highcharts();
-  scatterplot.series[0].remove(true);
-  scatterplot.addSeries({data: res, name: corr1 + "-" +
-      subcorr1 + " " + corr2 + "-" + subcorr2});
-  scatterplot.xAxis.title = corr1 + "-" + subcorr1
-  scatterplot.yAxis.title = corr2 + "-" + subcorr2
-  scatterplot.redraw();
+function genCorrelations(calc1, calc2, subcalc1, subcalc2){
+  $.post("./correlate/data", {b64: networkListb64 , calc1: calc1, subcalc1: subcalc1,
+      calc2: calc2, subcalc2: subcalc2}, function(res){
+    res = JSON.parse(res);
+    corrNetworks = res.hashList;
+    var scatterplot = $("#scatterplot").highcharts();
+    scatterplot.series[0].remove(true);
+    scatterplot.addSeries({data: res.data, name: calc1 + "-" +
+        subcalc1 + " " + calc2 + "-" + subcalc2});
+    scatterplot.xAxis.title = calc1 + "-" + subcalc1;
+    scatterplot.yAxis.title = calc2 + "-" + subcalc2;
+    scatterplot.redraw();
+  });
 }
 
 $(document).ready(function(){
@@ -83,9 +74,9 @@ $(document).ready(function(){
         var xName = $("#attrSelector1").val() + "-" + $("#suboptSel1").val();
         var yName = $("#attrSelector2").val() + "-" + $("#suboptSel2").val();
 
-        var res = "<b><a target=\"_blank\" href=\"info/"
-        res += corrNetworks[index].hash
-        res += "\">" + corrNetworks[index].name + "</a></b><br>"
+        var res = "<b><a target=\"_blank\" href=\"info/";
+        res += corrNetworks[index].hash;
+        res += "\">" + corrNetworks[index].name + "</a></b><br>";
         res += "<b>" + xName + "</b>:<br> " + this.x + "<br>";
         res += "<b>" + yName + "</b>:<br> " + this.y;
 

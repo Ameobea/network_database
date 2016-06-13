@@ -18,13 +18,28 @@ def getDb():
 # If it doesn't exist, returns False.
 #
 # TODO: Possibly look into limiting the fields that are returned to save system resources
-def getNetwork(networkHash):
+def getNetwork(networkHash, descrim=None):
   db = getDb()
-  res = db.networks.find_one({"hash": networkHash})
+  if descrim == None:
+    res = db.networks.find_one({"hash": networkHash})
+  else:
+    res = db.networks.find_one({"hash": networkHash}, descrim)
   if res != None:
     return res
   else:
     return False
+
+# returns a list of networks given a list of hashes
+def getNetworks(hashList, descrim=None):
+  db = getDb()
+  query = {"$or": []}
+  for nHash in hashList:
+    query["$or"].append({"hash": nHash})
+  if descrim == None:
+    res = db.networks.find(query)
+  else:
+    res = db.networks.find(query, descrim)
+  return res
 
 # Returns a list of the hashes of the first `limit` networks in the database
 def getNetworkList(limit, sortBy, sortDirection, start, db=False, descrim={}):

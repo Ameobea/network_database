@@ -66,6 +66,12 @@ def correlations():
   else:
     return render_template("error.html", conf=conf)
 
+@app.route("/correlate/data", methods=['POST'])
+def pairData():
+  if request.method == 'POST':
+    return resCorrelations.data(request.form["b64"], request.form["calc1"],
+        request.form["subcalc1"], request.form["calc2"], request.form["subcalc2"])
+
 @app.route("/humans.txt")
 def serverHumanstxt():
   return render_template("humans.txt"), 200, {'Content-Type': 'text/plain; charset=utf-8'}

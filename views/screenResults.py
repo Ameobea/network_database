@@ -36,5 +36,4 @@ def queryGen(in64):
 def render(args):
   query = queryGen(args.get("descrim"))
   networkList = dbQuery.getNetworkList(0, 0, 0, 0, descrim=query)
-  return render_template("mixins/screenResults.html", networkList=networkList,
-      dbQuery=dbQuery, conf=conf)
+  return render_template("mixins/screenResults.html", networkList=networkList, dbQuery=dbQuery, conf=conf)
