@@ -66,3 +66,7 @@ label {
 select {
   display: inline-block;
 }
+
+.ib {
+  display: inline-block;
+}

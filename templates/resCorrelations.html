@@ -7,6 +7,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.2/js.cookie.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="../sources/resCorrelations.js"></script>
+<script type="text/javascript">
+var suboptMaps = JSON.parse('{{ suboptionDeclarations | safe }}');
+var networks = JSON.parse('{{ strippedNetworks | safe }}')
+</script>
 {% endblock %}
 
 {% block body %}
@@ -14,19 +18,34 @@
 <section class="grid" id="settings">
 <div>
   <label for="attr1">Attribute 1</label>
-  <select>
+  <select class="attrSelector" id="attrSelector1">
   {{ attrOptions | safe }}
   </select>
+  <div id="subOption1" class="ib"></div>
   <br>
   <label for="attr2">Attribute 2</label>
-  <select>
+  <select class="attrSelector" id="attrSelector2">
   {{ attrOptions | safe }}
+  </select>
+  <div id="subOption2" class="ib"></div>
   </select>
 </div>
 <div>
-  Test
+<label class="checkbox">
+  <input type="checkbox" id="nodeLabels">
+  <span class="checkbox__label">Enable Network Labels</span>
+</label>
+<br>
+<label class="checkbox">
+  <input type="checkbox" id="tagColoring">
+  <span class="checkbox__label">Enable Coloring by Tag</span>
+</label>
+</div>
+<div>
+<p>Additional chart config will go here.</p>
 </div>
 </section>
+<input type="button" value="Plot Correlations" id="drawButton">
 <div id="scatterplot"></div>
 <input type="button" value="Export data">
 {% endblock %}
