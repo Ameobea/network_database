@@ -46,6 +46,10 @@ var networks = JSON.parse('{{ strippedNetworks | safe }}')
 </div>
 </section>
 <input type="button" value="Plot Correlations" id="drawButton">
-<div id="scatterplot"></div>
+<section class="grid">
+<div class="column--light"></div>
+<div id="scatterplot" class="column--heavy"></div>
+<div class="column--light"></div>
+</section>
 <input type="button" value="Export data">
 {% endblock %}

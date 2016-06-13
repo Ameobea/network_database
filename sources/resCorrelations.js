@@ -1,6 +1,9 @@
 "use strict";
 /*jslint browser: true*/ /*global  $, console, suboptMaps, networks*/
 
+// Used to keep track of the names of networks in the scatter plor
+var corrNetworks = [];
+
 // Generates the HTML for the option tags that go inside the suboption <select> tag
 function suboptGen(suboptName, suboptMap, num){
   var res = "<select id=\"suboptSel" + num + "\">\n";
@@ -25,6 +28,8 @@ function genCorrelations(corr1, corr2, subcorr1, subcorr2){
         networks[i].calculations[corr1].data[subcorr1],
         networks[i].calculations[corr2].data[subcorr2]
       ]);
+      //Store network metadata in global variable for use in formatter
+      corrNetworks.push({name: networks[i].name, hash: networks[i].hash});
     }
   }
 
@@ -38,6 +43,10 @@ function genCorrelations(corr1, corr2, subcorr1, subcorr2){
 }
 
 $(document).ready(function(){
+  // Make the graph's div a square
+  var scatterplot = $("#scatterplot");
+  $("#scatterplot").html(scatterplot.height(scatterplot.width())[0]);
+
   // Create blank scatter plot
   $("#scatterplot").highcharts({
     chart: {
@@ -49,6 +58,8 @@ $(document).ready(function(){
         enabled: true,
         text: 'test'
       },
+      gridLineDashStyle: "solid",
+      gridLineWidth: 1,
       startOnTick: true,
       endOnTick: true,
       showLastLabel: true
@@ -58,28 +69,32 @@ $(document).ready(function(){
         text: 'test'
       }
     },
-    title: {
-      text: "Network Attribute Correlation Plot"
-    },
     plotOptions: {
       scatter: {
+        animation: false,
         marker: {
-          radius: 5,
-          states: {
-            hover: {
-              enabled: true,
-              lineColor: 'rgb(100,100,100)'
-            }
-          }
-        },
-        states: {
-          hover: {
-            marker: {
-              enabled: false
-            }
-          }
+          radius: 10
         }
       }
+    },
+    tooltip: {
+      formatter: function(){
+        var index = this.series.data.indexOf(this.point);
+        var xName = $("#attrSelector1").val() + "-" + $("#suboptSel1").val();
+        var yName = $("#attrSelector2").val() + "-" + $("#suboptSel2").val();
+
+        var res = "<b><a target=\"_blank\" href=\"info/"
+        res += corrNetworks[index].hash
+        res += "\">" + corrNetworks[index].name + "</a></b><br>"
+        res += "<b>" + xName + "</b>:<br> " + this.x + "<br>";
+        res += "<b>" + yName + "</b>:<br> " + this.y;
+
+        return res;
+      },
+      useHTML: true
+    },
+    title: {
+      text: "Network Attribute Correlation Plot"
     },
     series: [{
       name: "Correlations",
