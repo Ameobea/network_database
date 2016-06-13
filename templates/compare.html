@@ -7,12 +7,17 @@
 <script src="../sources/compareAdd.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+  // Set up remove button listener
   $(".compare-add").click(function(){
     var colId= this.attributes[0].value.split(" ")[0];
     var hash = this.attributes[1].value.split("add-")[1];
     compareAdd(hash);
     $("." + colId).remove();
   });
+
+  // Insert base64 cookie value into hidden form for result visualization
+  var b64 = btoa(JSON.stringify(Cookies.get("compare").split(",")));
+  $("#b64Hidden").val(b64);
 });
 </script>
 {% endblock %}
@@ -59,4 +64,8 @@ $(document).ready(function(){
 {# statsRow("Eccentricity", calcDicts, "eccentricity.data.res", jinjaEnv) | safe #}
 {# statsRow("Rich Club Coefficient", calcDicts, "richClubCoefficient.data.res", jinjaEnv) | safe #}
 </tbody></table>
+<form action="{{ conf.SITE_ROOT }}/correlate" method="post">
+  <input type="hidden" id="b64Hidden" name="b64" value="loading">
+  <input type="submit" value="View Correlations" id="correlationButton">
+</form>
 {% endblock %}
