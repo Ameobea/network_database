@@ -65,6 +65,22 @@ def getDistributions(db=False):
     db = getDb()
   return db.distributions.find_one()
 
+# Given an API endpoint shortlink, checks to see if one already
+# exists by the name and if not stores it.
+def storeShortlink(shortlink, payload):
+  db = getDb()
+  db.shortlinks.replace_one({"shortlink": shortlink, "payload": payload},
+      {"shortlink": shortlink, "payload": payload}, upsert=True)
+
+# Returns the data associated with a shortlink
+def getShortlinkPayload(shortlink):
+  db = getDb()
+  doc = db.shortlinks.find_one({"shortlink": shortlink})
+  if doc != None:
+    return doc["payload"]
+  else:
+    return None
+
 # Wipes ALL data from database.  Yeah, be careful.
 def flush():
   db = getDb()

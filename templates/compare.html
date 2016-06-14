@@ -17,7 +17,7 @@ $(document).ready(function(){
 
   // Insert base64 cookie value into hidden form for result visualization
   var b64 = btoa(JSON.stringify(Cookies.get("compare").split(",")));
-  $("#b64Hidden").val(b64);
+  $(".b64Hidden").val(b64);
 });
 </script>
 {% endblock %}
@@ -64,8 +64,12 @@ $(document).ready(function(){
 {# statsRow("Eccentricity", calcDicts, "eccentricity.data.res", jinjaEnv) | safe #}
 {# statsRow("Rich Club Coefficient", calcDicts, "richClubCoefficient.data.res", jinjaEnv) | safe #}
 </tbody></table>
-<form action="{{ conf.SITE_ROOT }}/correlate" method="post">
-  <input type="hidden" id="b64Hidden" name="b64" value="loading">
+<form class="ib" action="{{ conf.SITE_ROOT }}/correlate" method="post">
+  <input type="hidden" class="b64Hidden" name="b64" value="loading">
   <input type="submit" value="View Correlations" id="correlationButton">
+</form>
+<form class="ib" action="{{ conf.SITE_ROOT }}/export" method="post">
+  <input type="hidden" class="b64Hidden" name="b64" value="loading">
+  <input type="submit" value="Export Data" id="exportButton">
 </form>
 {% endblock %}

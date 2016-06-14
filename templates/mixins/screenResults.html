@@ -41,6 +41,10 @@ var start = parseInt({{ start }});
   <input type="hidden" name="b64" value="{{ networkList | jsone | b64e }}">
   <input type="submit" value="View Correlations" id="correlationButton">
 </form>
+<form class="ib" action="{{ conf.SITE_ROOT }}/export" method="post">
+  <input type="hidden" class="b64Hidden" name="b64" value="{{ networkList | jsone | b64e }}">
+  <input type="submit" value="Export Data" id="exportButton">
+</form>
 <script type="text/javascript">
   // Set up click listeners for navigation arrors + comparison add
   $("#nextArrow").click(function(){

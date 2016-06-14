@@ -5,6 +5,7 @@
 from flask import Flask, render_template, send_from_directory, request
 from helpers import conf, dbQuery, jinjaSetup
 from views import compare, screener, screenResults, resCorrelations
+from views.api import attrs
 
 app = Flask(__name__)
 
@@ -59,9 +60,25 @@ def serveData(path):
 def highchartsHistogram(path):
   return send_from_directory("sources/highcharts-historgram", path)
 
-@app.route("/correlate", methods=['GET', 'POST'])
+@app.route("/export", methods=["GET", "POST"])
+def serveExportUI():
+  if request.method == "POST":
+    return render_template("export.html", conf=conf, b64=request.form["b64"])
+  else:
+    return render_template("exportGetError.html", conf=conf)
+
+# Export API endpoints
+@app.route("/api/s/<method>/<shortname>")
+def serverShortname(method, shortname):
+  return attrs.shortlinkServe(method, shortname)
+
+@app.route("/api/shortlinkgen", methods=["POST"])
+def shortlinkGen():
+  return attrs.shortlinkGen(request.form["instr"])
+
+@app.route("/correlate", methods=["GET", "POST:"])
 def correlations():
-  if request.method == 'POST':
+  if request.method == "POST":
     return resCorrelations.render(b64=request.form["b64"])
   else:
     return render_template("error.html", conf=conf)

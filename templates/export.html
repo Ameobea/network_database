@@ -1,0 +1,35 @@
+{# Data export GUI #}
+{# This page will be linked to from all data aggregation pages and allow users to export a variety of #}
+{# data from a list of networks. #}
+
+{% extends "layout.html" %}
+{% block head %}
+<title>Data Export Interface</title>
+<script src="./sources/export.js"></script>
+{% endblock %}
+
+{% block body %}
+<h1>Data Export Interface</h1>
+<p>Click the submit button to generate a link to your data in different formats.
+The link will always lead to the same data and can be reused indefinitely.  </p>
+<form>
+<!--   <label class="radio">
+    <input type="radio" name="method" value="csv" checked>
+    <span class="radio__label">CSV</span>
+  </label>
+  <label class="radio">
+    <input type="radio" name="method" value="json">
+    <span class="radio__label">JSON</span>
+  </label> -->
+  <!-- <label class="checkbox">
+    <input type="checkbox" id="pernode">
+    <span class="checkbox__label">Include per-node data in JSON results</span>
+  </label> -->
+  <br>
+  {# Inject some values into hidden inputs for access in javascript #}
+  <input type="hidden" value="{{ b64 }}" id="b64">
+  <input type="hidden" value="{{ conf.ROOT_ADDRESS }}" id="siteRoot">
+  <input type="button" value="Submit" id="submitButton">
+</form>
+<div id="res"></div>
+{% endblock %}
