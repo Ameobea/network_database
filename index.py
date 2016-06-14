@@ -70,11 +70,11 @@ def serveExportUI():
 # Export API endpoints
 @app.route("/api/s/<method>/<shortname>")
 def serverShortname(method, shortname):
-  return attrs.shortlinkServe(method, shortname)
+  return attrs.shortlinkServe(method, shortname, request)
 
 @app.route("/api/shortlinkgen", methods=["POST"])
 def shortlinkGen():
-  return attrs.shortlinkGen(request.form["instr"])
+  return attrs.shortlinkGen(request.form)
 
 @app.route("/correlate", methods=["GET", "POST:"])
 def correlations():
