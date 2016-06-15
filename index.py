@@ -76,7 +76,7 @@ def serverShortname(method, shortname):
 def shortlinkGen():
   return attrs.shortlinkGen(request.form)
 
-@app.route("/correlate", methods=["GET", "POST:"])
+@app.route("/correlate", methods=["GET", "POST"])
 def correlations():
   if request.method == "POST":
     return resCorrelations.render(b64=request.form["b64"])

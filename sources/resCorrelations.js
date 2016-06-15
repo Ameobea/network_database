@@ -71,14 +71,16 @@ $(document).ready(function(){
     tooltip: {
       formatter: function(){
         var index = this.series.data.indexOf(this.point);
-        var xName = $("#attrSelector1").val() + "-" + $("#suboptSel1").val();
-        var yName = $("#attrSelector2").val() + "-" + $("#suboptSel2").val();
+        var xName = $("#attrSelector1").val();
+        var yName = $("#attrSelector2").val();
+        var clearXName = $("option[value='" + xName + "']").first().text() + "-" + $("#suboptSel1").val();
+        var clearYName = $("option[value='" + yName + "']").first().text() + "-" + $("#suboptSel2").val();
 
         var res = "<b><a target=\"_blank\" href=\"info/";
         res += corrNetworks[index].hash;
         res += "\">" + corrNetworks[index].name + "</a></b><br>";
-        res += "<b>" + xName + "</b>:<br> " + this.x + "<br>";
-        res += "<b>" + yName + "</b>:<br> " + this.y;
+        res += "<b>" + clearXName + "</b>:<br> " + this.x.toLocaleString() + "<br>";
+        res += "<b>" + clearYName + "</b>:<br> " + this.y.toLocaleString();
 
         return res;
       },

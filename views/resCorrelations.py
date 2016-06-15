@@ -25,14 +25,14 @@ def genSubopts(networks):
 # Generates HTML that goes inside of the select dropdown menus for picking which
 # attributes to display in the correlation plot.
 def genAttrOptions(networks):
-  attrs = []
+  attrs = {}
   for network in networks:
     for calcName in network["calculations"]:
       if not(calcName in attrs):
-        attrs.append(calcName)
+        attrs[calcName] = network["calculations"][calcName]["clearName"]
   res = "";
-  for attr in attrs:
-    res += "  <option value=\"" + attr + "\">" + attr + "</option>\n"
+  for attrName, attrValue in attrs.iteritems():
+    res += "  <option value=\"" + attrName + "\">" + attrValue + "</option>\n"
   return res
 
 # Returns the index of the element in inList that has a hash of hash
