@@ -12,3 +12,14 @@ The database itself is built on top of MongoDB, a document-based database very p
 ## Installation
 1. `(sudo) pip install flask`
 1. `(sudo) pip install pymongo`
+
+You'll also have to install mongodb: `sudo apt-get install mongodb`
+
+Then you'll have to populate mongodb with some data for the site to display.  Data can be imported from the [network_research](https://github.com/ameobea/network_research) repository's `results.json` file directly into mongo with the `utils/insertAndUpdate.sh` script; you'll have to edit that file and change the path of the `results.json` file to wherever it is located on your machine.
+
+Finally, you'll have to copy the `helpers/conf.default.py` file to `helpers/conf.py` and edit the settings in there as needed for your installation.
+
+### Common Issues
+If you're getting errors when visiting pages, make sure that you actually have network data in mongo and that mongo is running.  This site assumes that there is data there when it tries to display it.
+
+In addition, if the screener page is broken and the charts aren't appearing, make sure that the `highcharts-historgram` submodule was cloned correctly.  Git is very bad about cloning submodules reliably; you may have to run `git pull --recurse-submodules --force` or, if that fails, manually clone the repository yourself from [here](https://github.com/ameobea/highcharts-histogram).
